@@ -11,6 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+
   <!-- Navbar -->
   <?php 	
     include('components/navbar.php'); 
@@ -26,7 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
     <!-- Main content -->
     <?php 	
-    include('pages/home.php'); 
+    include('pages/obat.php'); 
     ?>
     <!-- /.content -->
   </div>
