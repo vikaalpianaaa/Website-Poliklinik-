@@ -44,7 +44,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="home_dokter.php" class="nav-link">
               <i class="nav-icon fas fa-user-md"></i>
               <p>
                  Doktor
@@ -62,7 +62,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="home_poli.php" class="nav-link">
               <i class="nav-icon fas fas fa-clinic-medical"></i>
               <p>
                  Poli Klinik
