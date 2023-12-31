@@ -4,5 +4,5 @@
       For the Better Future
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Adnin Ramadhani</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Ilyas Kurnia Ramadhan</a>.</strong> All rights reserved.
   </footer>

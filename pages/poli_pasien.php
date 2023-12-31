@@ -63,7 +63,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="tambah_daftar_poli.php" method="post">
+                        <form action="pages/tambah_daftar_poli.php" method="post">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" id="id_pasien" name="id_pasien"
                                     value="<?= $user_id ?>" required>
