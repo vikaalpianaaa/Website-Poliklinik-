@@ -40,28 +40,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <?php 
-    include($sidebar_file); 
+  <?php 	
+    include('components/sidebar.php'); 
   ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Main content -->
     <?php 	
-    include('pages/poli.php'); 
+    include('pages/pasien.php'); 
     ?>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
+  <?php include($sidebar_file); ?>
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->

@@ -2,10 +2,10 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <title>Registrasi Pasien</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Tambahan CSS -->
+    <!-- CSS Custom untuk Halaman Registrasi -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #a6e9a6;
+            background-color: #29ab67;
         }
 
         .login-container {
@@ -98,70 +98,73 @@
 <body>
     <div class="login-container">
         <div class="left-container">
-            <img src="asset/images/hospital.jpg" alt="Login Image">
+            <img src="assets/images/hospital.png" alt="Login Image">
         </div>
         <div class="right-container">
             <div class="login-form">
-                <h2>Login </h2>
-                <form id="loginForm">
-                    <label for="nama">Username :</label>
+                <h2>Registrasi Pasien</h2>
+                <form id="registerForm">
+                    <label for="nama">Nama:</label>
                     <input type="text" id="nama" name="nama" required>
 
-                    <label for="no_hp">Nomor Handphone :</label>
-                    <input type="password" id="no_hp" name="no_hp" required>
+                    <label for="alamat">Alamat:</label>
+                    <input type="text" id="alamat" name="alamat" required>
 
-                    <button type="button" class="btn btn-primary btn-block" onclick="loginUser()">Login</button>
+                    <label for="no_ktp">Nomor KTP:</label>
+                    <input type="text" id="no_ktp" name="no_ktp" required>
 
+                    <label for="no_hp">Nomor HP:</label>
+                    <input type="text" id="no_hp" name="no_hp" required>
+
+                    <button type="button" class="btn btn-primary btn-block" onclick="registerUser()">Register</button>
                 </form>
 
                 <div class="register-link">
-                <p><b>Belum Punya Akun?</b> <a href="register.php">Registrasi disini</a></p>
+                    <p><b>Sudah punya akun?</b> <a href="login.php">Login disini</a></p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function loginUser() {
+        function registerUser() {
             var nama = document.getElementById('nama').value;
+            var alamat = document.getElementById('alamat').value;
+            var no_ktp = document.getElementById('no_ktp').value;
             var no_hp = document.getElementById('no_hp').value;
 
-            // Kirim data ke PHP untuk proses login
+            // Kirim data ke PHP untuk proses registrasi
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'process_login.php');
+            xhr.open('POST', 'process_register.php');
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
-                    if (response.status === 'success') {
-                        // Handle login berhasil
+                    if (response.success) {
+                        // Handle registrasi berhasil
                         Swal.fire({
                             icon: 'success',
-                            title: 'Login Berhasil!',
-                            text: response.welcome_message,
+                            title: 'Registrasi Berhasil!',
+                            text: response.message,
                             timer: 3000,
                             showConfirmButton: false
                         }).then(function () {
-                            window.location.href = response.redirect_url;
+                            window.location.href = 'login.php';
                         });
                     } else {
-                        // Handle login gagal
+                        // Handle registrasi gagal
                         Swal.fire({
                             icon: 'error',
-                            title: 'Login Gagal',
+                            title: 'Registrasi Gagal',
                             text: response.message
                         });
                     }
                 }
             };
-            var params = 'nama=' + nama + '&no_hp=' + no_hp;
+            var params = 'nama=' + nama + '&alamat=' + alamat + '&no_ktp=' + no_ktp + '&no_hp=' + no_hp;
             xhr.send(params);
         }
     </script>
-</body>
-
-</html>
-</script>
 </body>
 
 </html>

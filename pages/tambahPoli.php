@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Eksekusi query
     if (mysqli_query($mysqli, $query)) {
         // Jika berhasil, redirect kembali ke halaman utama atau sesuaikan dengan kebutuhan Anda
-        // header("Location: ../../index.php");
+        // header("Location: ../../dashboard.php");
         // exit();
         echo '<script>';
         echo 'alert("Data poli berhasil ditambahkan!");';

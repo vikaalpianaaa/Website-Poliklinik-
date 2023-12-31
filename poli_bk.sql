@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2023 at 05:18 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.0.19
+-- Generation Time: Dec 29, 2023 at 04:26 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `daftar_poli` (
   `id_jadwal` int(11) UNSIGNED NOT NULL,
   `keluhan` text NOT NULL,
   `no_antrian` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ CREATE TABLE `detail_periksa` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_periksa` int(11) UNSIGNED NOT NULL,
   `id_obat` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,25 @@ CREATE TABLE `dokter` (
   `alamat` varchar(255) NOT NULL,
   `no_hp` varchar(50) NOT NULL,
   `id_poli` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dokter`
+--
+
+INSERT INTO `dokter` (`id`, `nama`, `alamat`, `no_hp`, `id_poli`) VALUES
+(10, 'ilyas kurnia', 'Jl. megaraya I no 222 rt 03 rw 07 bringin, ngalian, semarang', '081325711255', 1);
+
+--
+-- Triggers `dokter`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_insert_dokter` AFTER INSERT ON `dokter` FOR EACH ROW BEGIN
+    INSERT INTO user_roles (nama, role_id, no_hp)
+    VALUES (NEW.nama, 2, NEW.no_hp);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -73,7 +91,7 @@ CREATE TABLE `jadwal_periksa` (
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -86,15 +104,16 @@ CREATE TABLE `obat` (
   `nama_obat` varchar(50) NOT NULL,
   `kemasan` varchar(35) NOT NULL,
   `harga` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `obat`
 --
 
 INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
-(1, 'asda', 'dadad', 2131),
-(2, 'adad', 'dfasdf', 1231);
+(1, 'paracetamol', 'tablet', 5000),
+(3, 'loperamide', 'kapsul', 10000),
+(4, 'sangobion', 'kapsul', 20000);
 
 -- --------------------------------------------------------
 
@@ -109,7 +128,18 @@ CREATE TABLE `pasien` (
   `no_ktp` varchar(255) NOT NULL,
   `no_hp` varchar(50) NOT NULL,
   `no_rm` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `pasien`
+--
+DELIMITER $$
+CREATE TRIGGER `tr_insert_pasien` AFTER INSERT ON `pasien` FOR EACH ROW BEGIN
+    INSERT INTO user_roles (nama, role_id, no_hp)
+    VALUES (NEW.nama, 3, NEW.no_hp);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -123,7 +153,7 @@ CREATE TABLE `periksa` (
   `tgl_periksa` datetime NOT NULL,
   `catatan` text NOT NULL,
   `biaya_periksa` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -135,7 +165,58 @@ CREATE TABLE `poli` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama_poli` varchar(255) NOT NULL,
   `keterangan` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `poli`
+--
+
+INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
+(1, 'poli anak', 'poliklinik anak'),
+(3, 'aea', 'd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `nama`) VALUES
+(1, 'admin'),
+(2, 'dokter'),
+(3, 'pasien');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `role_id` int(11) UNSIGNED NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `no_hp` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`id`, `role_id`, `nama`, `no_hp`) VALUES
+(1, 3, 'asd', '13131'),
+(2, 2, 'dada', '13131'),
+(3, 2, 'ilyas kurnia', '081325711255'),
+(4, 3, 'Dinita Kusumasari', '081325711255');
 
 --
 -- Indexes for dumped tables
@@ -197,6 +278,19 @@ ALTER TABLE `poli`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `role_id` (`role_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -216,7 +310,7 @@ ALTER TABLE `detail_periksa`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jadwal_periksa`
@@ -228,13 +322,13 @@ ALTER TABLE `jadwal_periksa`
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `periksa`
@@ -246,7 +340,19 @@ ALTER TABLE `periksa`
 -- AUTO_INCREMENT for table `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -283,6 +389,12 @@ ALTER TABLE `jadwal_periksa`
 --
 ALTER TABLE `periksa`
   ADD CONSTRAINT `id_daftar_poli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id`);
+
+--
+-- Constraints for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

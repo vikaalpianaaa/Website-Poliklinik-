@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// Mendapatkan role dari session atau dari tempat lain sesuai kebutuhan
+if (isset($_SESSION['role_id'])) {
+    $role = $_SESSION['role_id'];
+
+    // Tentukan file sidebar yang akan dimuat berdasarkan role
+    if ($role === 1) {
+        $sidebar_file = 'components/sidebar_admin.php';
+    } elseif ($role === 2) {
+        $sidebar_file = 'components/sidebar_dokter.php';
+    } else {
+        // Atur default jika $_SESSION['role_id'] tidak terdefinisi atau tidak sesuai
+        $sidebar_file = 'components/sidebar_pasien.php';
+    }
+} else {
+    // Atur default jika $_SESSION['role_id'] belum terdefinisi
+    $sidebar_file = 'components/sidebar_pasien.php';
+}
+?>
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -19,9 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <?php 	
-    include('components/sidebar.php'); 
-  ?>
+  <?php include($sidebar_file); ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

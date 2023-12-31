@@ -3,12 +3,14 @@ include '../koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil nilai dari form
-    $nama_obat = $_POST["nama_obat"];
-    $kemasan = $_POST["kemasan"];
-    $harga = $_POST["harga"];
+    $nama = $_POST["nama"];
+    $alamat = $_POST["alamat"];
+    $no_ktp = $_POST["no_ktp"];
+    $no_hp = $_POST["no_hp"];
+    $no_rm = $_POST["no_rm"];
 
     // Query untuk menambahkan data obat ke dalam tabel
-    $query = "INSERT INTO obat (nama_obat, kemasan, harga) VALUES ('$nama_obat', '$kemasan', '$harga')";
+    $query = "INSERT INTO pasien (nama, alamat, no_ktp, no_hp, no_rm) VALUES ('$nama', '$alamat', '$no_ktp', '$no_hp', '$no_rm')";
     
 
     // if ($koneksi->query($query) === TRUE) {
@@ -18,14 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // header("Location: ../../dashboard.php");
         // exit();
         echo '<script>';
-        echo 'alert("Data obat berhasil ditambahkan!");';
-        echo 'window.location.href = "../home_obat.php";';
+        echo 'alert("Data Pasien berhasil ditambahkan!");';
+        echo 'window.location.href = "../home_pasien.php";';
         echo '</script>';
         exit();
     } else {
         // Jika terjadi kesalahan, tampilkan pesan error
         echo "Error: " . $query . "<br>" . mysqli_error($mysqli);
     }
+    
 }
 
 // Tutup koneksi
