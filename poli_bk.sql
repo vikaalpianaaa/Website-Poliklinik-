@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2023 at 04:26 AM
+-- Generation Time: Jan 04, 2024 at 02:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `daftar_poli`
 --
 
+DROP TABLE IF EXISTS `daftar_poli`;
 CREATE TABLE `daftar_poli` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_pasien` int(11) UNSIGNED NOT NULL,
@@ -41,6 +42,7 @@ CREATE TABLE `daftar_poli` (
 -- Table structure for table `detail_periksa`
 --
 
+DROP TABLE IF EXISTS `detail_periksa`;
 CREATE TABLE `detail_periksa` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_periksa` int(11) UNSIGNED NOT NULL,
@@ -53,6 +55,7 @@ CREATE TABLE `detail_periksa` (
 -- Table structure for table `dokter`
 --
 
+DROP TABLE IF EXISTS `dokter`;
 CREATE TABLE `dokter` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -62,19 +65,31 @@ CREATE TABLE `dokter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dokter`
---
-
-INSERT INTO `dokter` (`id`, `nama`, `alamat`, `no_hp`, `id_poli`) VALUES
-(10, 'ilyas kurnia', 'Jl. megaraya I no 222 rt 03 rw 07 bringin, ngalian, semarang', '081325711255', 1);
-
---
 -- Triggers `dokter`
 --
+DELIMITER $$
+CREATE TRIGGER `tr_delete_dokter` AFTER DELETE ON `dokter` FOR EACH ROW BEGIN
+    DELETE FROM user_roles
+    WHERE
+        role_id = 2 AND nama = OLD.nama;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `tr_insert_dokter` AFTER INSERT ON `dokter` FOR EACH ROW BEGIN
     INSERT INTO user_roles (nama, role_id, no_hp)
     VALUES (NEW.nama, 2, NEW.no_hp);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_update_dokter` AFTER UPDATE ON `dokter` FOR EACH ROW BEGIN
+    UPDATE user_roles
+    SET
+        nama = NEW.nama,
+        no_hp = NEW.no_hp
+    WHERE
+        role_id = 2 AND nama = NEW.nama;
 END
 $$
 DELIMITER ;
@@ -85,6 +100,7 @@ DELIMITER ;
 -- Table structure for table `jadwal_periksa`
 --
 
+DROP TABLE IF EXISTS `jadwal_periksa`;
 CREATE TABLE `jadwal_periksa` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_dokter` int(10) UNSIGNED NOT NULL,
@@ -99,6 +115,7 @@ CREATE TABLE `jadwal_periksa` (
 -- Table structure for table `obat`
 --
 
+DROP TABLE IF EXISTS `obat`;
 CREATE TABLE `obat` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama_obat` varchar(50) NOT NULL,
@@ -121,6 +138,7 @@ INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
 -- Table structure for table `pasien`
 --
 
+DROP TABLE IF EXISTS `pasien`;
 CREATE TABLE `pasien` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -134,9 +152,28 @@ CREATE TABLE `pasien` (
 -- Triggers `pasien`
 --
 DELIMITER $$
+CREATE TRIGGER `tr_delete_pasien` AFTER DELETE ON `pasien` FOR EACH ROW BEGIN
+    DELETE FROM user_roles
+    WHERE
+        role_id = 3 AND nama = OLD.nama;
+END
+$$
+DELIMITER ;
+DELIMITER $$
 CREATE TRIGGER `tr_insert_pasien` AFTER INSERT ON `pasien` FOR EACH ROW BEGIN
     INSERT INTO user_roles (nama, role_id, no_hp)
     VALUES (NEW.nama, 3, NEW.no_hp);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tr_update_pasien` AFTER UPDATE ON `pasien` FOR EACH ROW BEGIN
+    UPDATE user_roles
+    SET
+        nama = NEW.nama,
+        no_hp = NEW.no_hp
+    WHERE
+        role_id = 3 AND nama = NEW.nama;
 END
 $$
 DELIMITER ;
@@ -147,6 +184,7 @@ DELIMITER ;
 -- Table structure for table `periksa`
 --
 
+DROP TABLE IF EXISTS `periksa`;
 CREATE TABLE `periksa` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_daftar_poli` int(11) UNSIGNED NOT NULL,
@@ -161,19 +199,12 @@ CREATE TABLE `periksa` (
 -- Table structure for table `poli`
 --
 
+DROP TABLE IF EXISTS `poli`;
 CREATE TABLE `poli` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama_poli` varchar(255) NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `poli`
---
-
-INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
-(1, 'poli anak', 'poliklinik anak'),
-(3, 'aea', 'd');
 
 -- --------------------------------------------------------
 
@@ -181,6 +212,8 @@ INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
 -- Table structure for table `roles`
 --
 
+
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL
@@ -201,6 +234,7 @@ INSERT INTO `roles` (`id`, `nama`) VALUES
 -- Table structure for table `user_roles`
 --
 
+DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
   `id` int(11) UNSIGNED NOT NULL,
   `role_id` int(11) UNSIGNED NOT NULL,
@@ -213,10 +247,7 @@ CREATE TABLE `user_roles` (
 --
 
 INSERT INTO `user_roles` (`id`, `role_id`, `nama`, `no_hp`) VALUES
-(1, 3, 'asd', '13131'),
-(2, 2, 'dada', '13131'),
-(3, 2, 'ilyas kurnia', '081325711255'),
-(4, 3, 'Dinita Kusumasari', '081325711255');
+(5, 1, 'admin', '123');
 
 --
 -- Indexes for dumped tables
@@ -298,7 +329,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `detail_periksa`
@@ -310,13 +341,13 @@ ALTER TABLE `detail_periksa`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `obat`
@@ -328,7 +359,7 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `periksa`
@@ -340,7 +371,7 @@ ALTER TABLE `periksa`
 -- AUTO_INCREMENT for table `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -352,7 +383,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

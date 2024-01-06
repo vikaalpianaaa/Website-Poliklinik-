@@ -11,6 +11,7 @@
     $user_id = $_SESSION['user_id'];
     $role_id = $_SESSION['role_id'];
     $nama = $_SESSION['nama']; // Ambil nama dari session
+    $no_rm = $_SESSION['no_rm'];
 
     $query_antrian = "SELECT MAX(SUBSTRING_INDEX(no_antrian, '-', -1)) as max_antrian FROM daftar_poli WHERE SUBSTRING_INDEX(no_antrian, '-', 1) = '$tahun_bulan'";
     $result_antrian = mysqli_query($mysqli, $query_antrian);
@@ -31,6 +32,9 @@
     $result = mysqli_query($mysqli, $query);
 
     $polis = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    $id_pasien = isset($_SESSION['id_pasien']) ? $_SESSION['id_pasien'] : '';
+    $no_rm = isset($_SESSION['no_rm']) ? $_SESSION['no_rm'] : '';
 ?>
 
 <!-- Content Header (Page header) -->
@@ -66,12 +70,12 @@
                         <form action="pages/tambah_daftar_poli.php" method="post">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" id="id_pasien" name="id_pasien"
-                                    value="<?= $user_id ?>" required>
+                                    value="<?= $id_pasien ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="no_antrian">Nomor Rekam Medis</label>
-                                <input type="text" class="form-control" id="no_antrian" name="no_antrian" value="<?= $antrian ?>"
-                                    required>
+                                <label for="no_rm">Nomor Rekam Medis</label>
+                                <input type="text" class="form-control" id="no_rm" name="no_rm" value="<?= $no_rm ?>"
+                                    readonly>
                             </div>
                             <div class="form-group">
                                 <label for="id_poli">Pilih Poli</label>
@@ -210,7 +214,8 @@
                         $('#id_jadwal').empty();
                         $.each(data, function (key, value) {
                             $('#id_jadwal').append('<option value="' + value.id +
-                                '">' + value.hari + ' ' +  value.jam_mulai + '</option>');
+                                '">' + value.hari + ' ' + value.jam_mulai +
+                                '</option>');
                         });
                     },
                     error: function (xhr, status, error) {

@@ -1,3 +1,24 @@
+<?php
+    include 'koneksi.php';
+
+    $tahun_bulan = date('Ym');
+
+    $query_no_rm = "SELECT MAX(SUBSTRING_INDEX(no_rm, '-', -1)) as max_no_rm FROM pasien WHERE SUBSTRING_INDEX(no_rm, '-', 1) = '$tahun_bulan'";
+    $result_no_rm = mysqli_query($mysqli, $query_no_rm);
+    $row_no_rm = mysqli_fetch_assoc($result_no_rm);
+    $max_no_rm = $row_no_rm['max_no_rm'];
+
+    if ($max_no_rm === null) {
+        $nomor_rm = 1;
+    } else {
+        // Jika sudah ada antrian, tambahkan 1
+        $nomor_rm = $max_no_rm + 1;
+    }
+    
+    // Format antrian sesuai kebutuhan
+    $no_rm = sprintf("%s-%03d", $tahun_bulan, $nomor_rm);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -115,6 +136,9 @@
 
                     <label for="no_hp">Nomor HP:</label>
                     <input type="text" id="no_hp" name="no_hp" required>
+                    
+                    <input type="hidden" id="no_rm" name="no_rm" value="<?= $no_rm ?>" required>
+
 
                     <button type="button" class="btn btn-primary btn-block" onclick="registerUser()">Register</button>
                 </form>
@@ -132,6 +156,7 @@
             var alamat = document.getElementById('alamat').value;
             var no_ktp = document.getElementById('no_ktp').value;
             var no_hp = document.getElementById('no_hp').value;
+            var no_rm = document.getElementById('no_rm').value;
 
             // Kirim data ke PHP untuk proses registrasi
             var xhr = new XMLHttpRequest();
@@ -161,7 +186,7 @@
                     }
                 }
             };
-            var params = 'nama=' + nama + '&alamat=' + alamat + '&no_ktp=' + no_ktp + '&no_hp=' + no_hp;
+            var params = 'nama=' + nama + '&alamat=' + alamat + '&no_ktp=' + no_ktp + '&no_hp=' + no_hp + '&no_rm=' + no_rm ;
             xhr.send(params);
         }
     </script>

@@ -9,7 +9,12 @@ $nama = mysqli_real_escape_string($conn, $_POST['nama']);
 $no_hp = mysqli_real_escape_string($conn, $_POST['no_hp']);
 
 // Query menggunakan prepared statement
-$query = "SELECT * FROM user_roles WHERE nama=? AND no_hp=?";
+$query = "SELECT ur.*, d.id AS id_dokter, d.alamat AS alamat_dokter, d.no_hp AS no_hp_dokter,
+                 p.id AS id_pasien, p.no_rm
+          FROM user_roles ur
+          LEFT JOIN dokter d ON ur.nama = d.nama
+          LEFT JOIN pasien p ON ur.nama = p.nama
+          WHERE ur.nama=? AND ur.no_hp=?";
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, "ss", $nama, $no_hp);
 mysqli_stmt_execute($stmt);
@@ -20,7 +25,19 @@ if (mysqli_num_rows($result) == 1) {
     $_SESSION['user_id'] = $row['id'];
     $_SESSION['role_id'] = $row['role_id'];
     $_SESSION['nama'] = $row['nama'];
+    
+    // Jika user adalah dokter, simpan informasi dokter dalam session
+    if ($row['role_id'] == 2) {
+        $_SESSION['id_dokter'] = $row['id_dokter'];
+        $_SESSION['alamat_dokter'] = $row['alamat_dokter'];
+        $_SESSION['no_hp_dokter'] = $row['no_hp_dokter'];
+    }
 
+    // Jika user adalah pasien, simpan informasi pasien dalam session
+    if ($row['role_id'] == 3) {
+        $_SESSION['id_pasien'] = $row['id_pasien'];
+        $_SESSION['no_rm'] = $row['no_rm'];
+    }
 
     $role = $row['role_id'];
     $redirect_url = '';
