@@ -12,7 +12,7 @@
             $_SESSION['password'] = $password;
             $_SESSION['akses'] = "admin";
 
-            header("location:../../dokter.php");
+            header("location:../../dashboard_admin.php");
         }
         else{
             $query = "SELECT * FROM dokter WHERE nama = '$username' && password = '$password'";
@@ -26,7 +26,7 @@
                 $_SESSION['id_poli'] = $data['id_poli'];
                 $_SESSION['akses'] = "dokter";
 
-                header("location:../../dashboard.php");
+                header("location:../../dashboard_dokter.php");
             }
             else{
                 echo '<script>alert("Email atau password salah");location.href="../../login.php";</script>';

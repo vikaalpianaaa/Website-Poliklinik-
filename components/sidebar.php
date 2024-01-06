@@ -48,6 +48,12 @@
                     ?>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="dashboard_admin.php" class="nav-link">
+                                <i class="fas fa-solid fa-hospital-user nav-icon"></i>
+                                <p>Dashboard <span class="right badge badge-danger">Admin</span></p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="dokter.php" class="nav-link">
                                 <i class="fas fa-solid fa-user-nurse nav-icon"></i>
                                 <p>Dokter <span class="right badge badge-danger">Admin</span></p>

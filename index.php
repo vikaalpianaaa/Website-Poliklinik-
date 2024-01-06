@@ -19,11 +19,12 @@
 </head>
 
 <body class="hold-transition login-page">
-    <div class="container-fluid bg-sky-600 flex flex-col justify-center items-center text-white p-5"
-        style="height: 400px;">
-        <h1 class="font-weight-bold mb-3">Poliklinik</h1>
+    <div class="container-fluid flex flex-col justify-center items-center text-white p-5"
+        style="height: 400px; background-color: #232ed1;">
+        <h1 class="font-weight-bold mb-3">Sistem Temu Janji Pasien - Dokter</h1>
         <h5>
-            "Sehat Terbaik Dimulai di Sini: Poliklinik Kami, Pelayanan Berkualitas untuk Kesehatan Optimal Anda!"</h5>
+            Bimbingan Karir 2023 Bidang Website
+        </h5>
     </div>
     <div class="container mt-5">
         <div class="row justify-content-lg-center">
@@ -53,6 +54,46 @@
             </div>
         </div>
         <!-- /.login-box -->
+        <section class="client_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2 style="font-size: 32px;">Testimoni Pasien</h2>
+                <p>Para Pasien Yang Setia</p>
+            </div><br><br><br>
+            <div class="row">
+                <!-- Customer 1 -->
+                <div class="row-md-6">
+                    <div class="box">
+                        <div class="profile">
+                            <div class="img-box">
+                                <img src="asset/images/testimoni.png" alt="Client 1">
+                            </div>
+                            <div class="client_info">
+                                <h6>Nopal</h6>
+                                <p>Semarang</p>
+                            </div>
+                        </div>
+                        <p>Pelayanan diweb ini sangat cepat dan mudah, detail histori tercatat lengkap, termasuk catatan obat, harga pelayanan terjangkau, dokter ramah pokoke mantab pol!</p>
+                    </div>
+                </div>
+                <!-- Customer 2 -->
+                <div class="row-md-6">
+                    <div class="box">
+                        <div class="profile">
+                            <div class="img-box">
+                                <img src="asset/images/testimoni.png" alt="Client 2">
+                            </div>
+                            <div class="client_info">
+                                <h6>Ilyas</h6>
+                                <p>Semarang</p>
+                            </div>
+                        </div>
+                        <p>Aku tidak pernah merasakan mudahnya berobat sebelum mengenal web ini, web yang mudah digunakan dan dokter yang terampil membuat berobat menjadi lebih menyenangkan!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
         <!-- jQuery -->
         <script src="assets/plugins/jquery/jquery.min.js"></script>
