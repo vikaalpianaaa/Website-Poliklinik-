@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
     session_start();
+    $id_dokter = $_SESSION['id'];
     $username = $_SESSION['username'];
+    $id_poli = $_SESSION['id_poli'];
 
     if ($username == "") {
         header("location:login.php");
@@ -39,7 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <?php include ('pages/dashboard/index.php') ?>
+            <?php include ('pages/riwayatPasien/index.php') ?>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->

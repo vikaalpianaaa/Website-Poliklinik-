@@ -1,195 +1,92 @@
-<?php
-    include 'koneksi.php';
-
-    $tahun_bulan = date('Ym');
-
-    $query_no_rm = "SELECT MAX(SUBSTRING_INDEX(no_rm, '-', -1)) as max_no_rm FROM pasien WHERE SUBSTRING_INDEX(no_rm, '-', 1) = '$tahun_bulan'";
-    $result_no_rm = mysqli_query($mysqli, $query_no_rm);
-    $row_no_rm = mysqli_fetch_assoc($result_no_rm);
-    $max_no_rm = $row_no_rm['max_no_rm'];
-
-    if ($max_no_rm === null) {
-        $nomor_rm = 1;
-    } else {
-        // Jika sudah ada antrian, tambahkan 1
-        $nomor_rm = $max_no_rm + 1;
-    }
-    
-    // Format antrian sesuai kebutuhan
-    $no_rm = sprintf("%s-%03d", $tahun_bulan, $nomor_rm);
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Registrasi Pasien</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- CSS Custom untuk Halaman Registrasi -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #29ab67;
-        }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poliklinik</title>
 
-        .login-container {
-            display: flex;
-            max-width: 1200px;
-            /* Ubah max-width sesuai kebutuhan */
-            background-color: #fff;
-            color: #186218;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .left-container {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .left-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .right-container {
-            flex: 1;
-            padding: 40px;
-            /* Menambahkan padding untuk memperbesar area formulir */
-        }
-
-        .login-form {
-            max-width: 400px;
-            /* Sesuaikan dengan kebutuhan */
-            margin: 0 auto;
-        }
-
-        .login-form h2 {
-            text-align: center;
-            /* Tengahkan judul */
-        }
-
-        .login-form label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .login-form input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            border: none;
-            /* Hapus border */
-            border-bottom: 1px solid #ccc;
-            /* Tambahkan garis bawah */
-            outline: none;
-            /* Hapus outline */
-        }
-
-        .login-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .register-link a {
-            color: #3498db;
-            text-decoration: none;
-        }
-    </style>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
 </head>
 
-<body>
-    <div class="login-container">
-        <div class="left-container">
-            <img src="assets/images/hospital.png" alt="Login Image">
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="assets/index2.html"><b>Poliklinik</b></a>
         </div>
-        <div class="right-container">
-            <div class="login-form">
-                <h2>Registrasi Pasien</h2>
-                <form id="registerForm">
-                    <label for="nama">Nama:</label>
-                    <input type="text" id="nama" name="nama" required>
 
-                    <label for="alamat">Alamat:</label>
-                    <input type="text" id="alamat" name="alamat" required>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Daftarkan data anda sebagai <span class="text-primary">Pasien</span> </p>
 
-                    <label for="no_ktp">Nomor KTP:</label>
-                    <input type="text" id="no_ktp" name="no_ktp" required>
-
-                    <label for="no_hp">Nomor HP:</label>
-                    <input type="text" id="no_hp" name="no_hp" required>
-                    
-                    <input type="hidden" id="no_rm" name="no_rm" value="<?= $no_rm ?>" required>
-
-
-                    <button type="button" class="btn btn-primary btn-block" onclick="registerUser()">Register</button>
+                <form action="pages/register/checkRegister.php" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nama" name="nama" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="KTP" name="no_ktp" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-id-card"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <textarea class="form-control" rows="3" id="alamat" name="alamat" placeholder="Alamat"
+                            required></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="No HP" name="no_hp" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-phone"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary">
+                        Register
+                    </button>
                 </form>
 
-                <div class="register-link">
-                    <p><b>Sudah punya akun?</b> <a href="login.php">Login disini</a></p>
+                <div class="social-auth-links text-center">
+                    <p>- Sudah punya akun? -</p>
+                    <a href="loginUser.php" class="btn btn-block btn-success">
+                        Login
+                    </a>
                 </div>
             </div>
-        </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
     </div>
+    <!-- /.register-box -->
 
-    <script>
-        function registerUser() {
-            var nama = document.getElementById('nama').value;
-            var alamat = document.getElementById('alamat').value;
-            var no_ktp = document.getElementById('no_ktp').value;
-            var no_hp = document.getElementById('no_hp').value;
-            var no_rm = document.getElementById('no_rm').value;
-
-            // Kirim data ke PHP untuk proses registrasi
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'process_register.php');
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        // Handle registrasi berhasil
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Registrasi Berhasil!',
-                            text: response.message,
-                            timer: 3000,
-                            showConfirmButton: false
-                        }).then(function () {
-                            window.location.href = 'login.php';
-                        });
-                    } else {
-                        // Handle registrasi gagal
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Registrasi Gagal',
-                            text: response.message
-                        });
-                    }
-                }
-            };
-            var params = 'nama=' + nama + '&alamat=' + alamat + '&no_ktp=' + no_ktp + '&no_hp=' + no_hp + '&no_rm=' + no_rm ;
-            xhr.send(params);
-        }
-    </script>
+    <!-- jQuery -->
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="assets/dist/js/adminlte.min.js"></script>
 </body>
 
 </html>

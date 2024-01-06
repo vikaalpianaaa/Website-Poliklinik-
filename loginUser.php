@@ -25,11 +25,12 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Silahkan login sebagai <b class="text-success">Dokter</b> untuk melanjutkan</p>
+                <p class="login-box-msg">Silahkan login sebagai <span class="text-primary">Pasien</span> untuk
+                    melanjutkan mendaftar poli</p>
 
-                <form action="pages/login/checkLogin.php" method="post">
+                <form action="pages/loginUser/checkLoginUser.php" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username" required>
+                        <input type="text" class="form-control" placeholder="Username" name="username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -37,30 +38,31 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password" required>
+                        <input type="password" class="form-control" placeholder="Password" name="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-block btn-success">
+                    <button type="submit" class="btn btn-block btn-primary">
                         Login
                     </button>
                 </form>
 
-                <!-- <div class="social-auth-links text-center mb-3">
-                    <p>- Belum punya akun? -</p>
-                    <a href="register.php" class="btn btn-block btn-primary">
+                <div class="social-auth-links text-center mb-3">
+                    <p>- Belum punya akun pasien? -</p>
+                    <a href="register.php" class="btn btn-block btn-secondary">
                         Register
                     </a>
-                </div> -->
+                </div>
                 <!-- /.social-auth-links -->
             </div>
             <!-- /.login-card-body -->
         </div>
-        <div class="text-center mt-3">Login Sebagai <a href="loginUser.php"><span class="text-primary">Pasien</span></a>
-        </div>
+    </div>
+    <div class="text-center mt-3">Login Sebagai <a href="login.php"><span class="text-success">Dokter</span></a>
+    </div>
     </div>
     <!-- /.login-box -->
 
