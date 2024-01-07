@@ -10,6 +10,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hari = $_POST["hari"];
     $jamMulai = $_POST["jamMulai"];
     $jamSelesai = $_POST["jamSelesai"];
+    $aktif = $_POST['aktif'];
+
+    // Sebelum meng-update jadwal_periksa, atur semua nilai 'aktif' menjadi 'N' untuk dokter tertentu
+    $resetAktifQuery = "UPDATE jadwal_periksa SET aktif='N' WHERE id_dokter='$idDokter'";
+    mysqli_query($mysqli, $resetAktifQuery);
+
+    // Hanya satu jadwal yang boleh aktif, atur nilai 'aktif' menjadi 'Y' untuk jadwal yang sedang di-edit
+    $setAktifQuery = "UPDATE jadwal_periksa SET aktif='$aktif' WHERE id='$id'";
+    mysqli_query($mysqli, $setAktifQuery);
 
     $queryOverlap = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id 
     INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$idPoli' 
@@ -23,7 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else{
         // Query untuk menambahkan data obat ke dalam tabel
-        $query = "UPDATE jadwal_periksa SET hari = '$hari', jam_mulai = '$jamMulai', jam_selesai = '$jamSelesai' WHERE id = '$id'";
+        $query = "UPDATE jadwal_periksa SET hari = '$hari', jam_mulai = '$jamMulai', jam_selesai = '$jamSelesai', aktif = '$aktif' WHERE id = '$id'";
+
         
 
         // if ($koneksi->query($query) === TRUE) {

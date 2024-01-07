@@ -5,8 +5,8 @@ require 'config/koneksi.php';
 // Ambil id poli dari AJAX
 $poliId = $_POST['poliId'];
 
-// Buat kueri SQL untuk mengambil jadwal berdasarkan poli
-$query = "SELECT jadwal_periksa.id as idJadwal, dokter.nama, jadwal_periksa.hari, DATE_FORMAT(jadwal_periksa.jam_mulai, '%H:%i') as jamMulai, DATE_FORMAT(jadwal_periksa.jam_selesai, '%H:%i') as jamSelesai FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE poli.id = '$poliId'";
+// Buat kueri SQL untuk mengambil jadwal berdasarkan poli dan status aktif
+$query = "SELECT jadwal_periksa.id as idJadwal, dokter.nama, jadwal_periksa.hari, DATE_FORMAT(jadwal_periksa.jam_mulai, '%H:%i') as jamMulai, DATE_FORMAT(jadwal_periksa.jam_selesai, '%H:%i') as jamSelesai FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE poli.id = '$poliId' AND jadwal_periksa.aktif = 'Y'";
 $result = mysqli_query($mysqli, $query);
 
 // Periksa apakah kueri berhasil dieksekusi

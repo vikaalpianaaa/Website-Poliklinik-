@@ -173,3 +173,18 @@
     </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->
+<script>
+    function hitungTotal() {
+        // Ambil semua elemen select dengan name "obat[]"
+        var selectedObat = document.querySelectorAll('select[name="obat[]"] option:checked');
+        
+        var totalHarga = 150000; // Harga awal
+        // Iterasi melalui obat yang dipilih dan tambahkan harga masing-masing
+        selectedObat.forEach(function(option) {
+            totalHarga += parseInt(option.getAttribute('data-harga')) || 0;
+        });
+
+        // Tampilkan total harga
+        document.getElementById('totalHarga').innerText = 'Total Harga: ' + totalHarga;
+    }
+</script>

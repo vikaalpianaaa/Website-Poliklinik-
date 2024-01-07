@@ -92,8 +92,18 @@
                                                                         $idPasien = $data['idPasien'];
                                                                         $nomor = 1;
                                                                         require 'config/koneksi.php';
-                                                                        $ambilData = "SELECT detail_periksa.id as idDetailPeriksa,periksa.tgl_periksa, pasien.nama as namaPasien, dokter.nama, daftar_poli.keluhan, periksa.catatan, GROUP_CONCAT(obat.nama_obat) as namaObat, SUM(obat.harga) + periksa.biaya_periksa AS hargaObat FROM detail_periksa INNER JOIN periksa ON detail_periksa.id_periksa = periksa.id INNER JOIN daftar_poli ON periksa.id_daftar_poli = daftar_poli.id INNER JOIN pasien ON daftar_poli.id_pasien = pasien.id INNER JOIN obat ON detail_periksa.id_obat = obat.id INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id  WHERE dokter.id = '$id_dokter' AND pasien.id = '$idPasien' GROUP BY pasien.id,periksa.tgl_periksa";
-
+                                                                        $ambilData = "SELECT detail_periksa.id as idDetailPeriksa, periksa.tgl_periksa, pasien.nama as namaPasien, dokter.nama, daftar_poli.keluhan, periksa.catatan,
+                                                                                    GROUP_CONCAT(obat.nama_obat) as namaObat,
+                                                                                    periksa.biaya_periksa AS hargaObat 
+                                                                                    FROM detail_periksa 
+                                                                                    INNER JOIN periksa ON detail_periksa.id_periksa = periksa.id 
+                                                                                    INNER JOIN daftar_poli ON periksa.id_daftar_poli = daftar_poli.id 
+                                                                                    INNER JOIN pasien ON daftar_poli.id_pasien = pasien.id 
+                                                                                    INNER JOIN obat ON detail_periksa.id_obat = obat.id 
+                                                                                    INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id 
+                                                                                    INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id 
+                                                                                    WHERE dokter.id = '$id_dokter' AND pasien.id = '$idPasien' 
+                                                                                    GROUP BY pasien.id, periksa.tgl_periksa";
                                                                         $results = mysqli_query($mysqli, $ambilData);
                                                                         while ($datas = mysqli_fetch_assoc($results)) {
                                                                             # code...

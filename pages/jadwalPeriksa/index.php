@@ -144,6 +144,7 @@
                                     <th>Hari</th>
                                     <th>Jam Mulai</th>
                                     <th>Jam Selesai</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -153,7 +154,7 @@
                                 <?php
                                 $no = 1;
                             require 'config/koneksi.php';
-                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
+                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.aktif, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
                             $result = mysqli_query($mysqli, $query);
 
                             while ($data = mysqli_fetch_assoc($result)) {
@@ -165,6 +166,7 @@
                                     <td><?php echo $data['hari'] ?></td>
                                     <td><?php echo $data['jam_mulai'] ?></td>
                                     <td><?php echo $data['jam_selesai'] ?></td>
+                                    <td><?php echo $data['aktif'] ?></td>
                                     <td>
                                         <?php
                                             require 'config/koneksi.php';
@@ -176,15 +178,13 @@
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
                                             data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
                                             disabled>Edit</button>
-                                        <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
-                                            data-target="#hapusModal<?php echo $data['id'] ?>" disabled>Hapus</button>
                                         <?php } else { ?>
                                         <button type='button' class='btn btn-sm btn-warning edit-btn'
                                             data-toggle="modal" data-target="#editModal<?php echo $data['id'] ?>"
                                             <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Edit</button>
-                                        <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
+                                        <!-- <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
                                             data-target="#hapusModal<?php echo $data['id'] ?>"
-                                            <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button>
+                                            <?php echo $data['id_dokter'] == $id_dokter ? '' : 'disabled'?>>Hapus</button> -->
                                         <?php } ?>
                                     </td>
                                     <!-- Modal Edit Data Obat -->
@@ -208,13 +208,14 @@
                                                             <label for="hari">Hari</label>
                                                             <select class="form-control" id="hari" name="hari">
                                                                 <?php
-                                                            $hariArray = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-                                                           foreach($hariArray as $hari){
-                                                        ?>
-                                                                <option value="<?php echo $hari ?>">
-                                                                    <?php echo $hari ?></option>
-                                                                <?php } ?>
+                                                                $hariArray = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+                                                                foreach($hariArray as $hari){
+                                                                    $selected = ($data['hari'] == $hari) ? 'selected' : '';
+                                                                    echo "<option value=\"$hari\" $selected>$hari</option>";
+                                                                }
+                                                                ?>
                                                             </select>
+
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="jamMulai">Jam Mulai</label>
@@ -228,6 +229,19 @@
                                                                 name="jamSelesai" required
                                                                 value="<?= $data['jam_selesai'] ?>">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="aktif">Aktif</label>
+                                                            <select class="form-control" id="aktif" name="aktif"
+                                                                required>
+                                                                <option value="Y"
+                                                                    <?php echo $data['aktif'] == 'Y' ? 'selected' : ''; ?>>
+                                                                    Ya</option>
+                                                                <option value="N"
+                                                                    <?php echo $data['aktif'] == 'N' ? 'selected' : ''; ?>>
+                                                                    Tidak</option>
+                                                            </select>
+                                                        </div>
+
                                                         <button type="submit" class="btn btn-success">Simpan</button>
                                                     </form>
                                                 </div>

@@ -49,7 +49,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="dashboard_admin.php" class="nav-link">
-                                <i class="fas fa-solid fa-hospital-user nav-icon"></i>
+                                <i class="fas fa-solid fas fa-th nav-icon"></i>
                                 <p>Dashboard <span class="right badge badge-danger">Admin</span></p>
                             </a>
                         </li>
@@ -80,6 +80,12 @@
                     </ul>
                     <?php } else if($_SESSION['akses']=="dokter"){ ?>
                     <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                            <a href="dashboard_dokter.php" class="nav-link">
+                                <i class="fas fa-solid fas fa-th nav-icon"></i>
+                                <p>Dashboard <span class="right badge badge-success">Dokter</span></p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="jadwalPeriksa.php" class="nav-link">
                                 <i class="fas fa-solid fa-hospital-user nav-icon"></i>
@@ -102,7 +108,7 @@
                     <?php } else if($_SESSION['akses'] == "pasien"){?>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="dashboard.php" class="nav-link">
+                            <a href="dashboard_pasien.php" class="nav-link">
                                 <i class="fas fa-solid fa-hospital-user nav-icon"></i>
                                 <p>Dashboard <span class="right badge badge-info">Pasien</span></p>
                             </a>
@@ -118,7 +124,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="pages/logout/logout.php" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Logout
                         </p>

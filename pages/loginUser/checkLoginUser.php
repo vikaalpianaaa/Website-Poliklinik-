@@ -18,7 +18,7 @@
                 $_SESSION['no_rm'] = $data['no_rm'];
                 $_SESSION['akses'] = "pasien";
 
-                header("location:../../daftarPoliklinik.php");
+                header("location:../../dashboard_pasien.php");
             }
             else{
                 echo '<script>alert("Email atau password salah");location.href="../../loginUser.php";</script>';

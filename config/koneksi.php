@@ -1,6 +1,6 @@
 <?php 
 $databaseHost = 'localhost';
-$databaseName = 'poli_clone';
+$databaseName = 'poli_bk';
 $databaseUsername = 'root';
 $databasePassword = '';
  

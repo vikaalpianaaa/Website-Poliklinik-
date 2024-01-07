@@ -32,6 +32,7 @@
                         <div class="form-group">
                             <label for="poli">Pilih Poli</label>
                             <select class="form-control" id="poli" name="poli" required>
+                            <option value="" disabled selected>Pilih Poli</option>
                                 <?php
                                 require 'config/koneksi.php';
                                 $query = "SELECT * FROM poli";
