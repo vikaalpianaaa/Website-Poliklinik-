@@ -2,8 +2,8 @@
 
 username dan passwor admin
 ```
-username : Admin
-password : admin
+username : Adminpoliklinik
+password : adminpoliklinik
 ```
 
 ## Dokter
