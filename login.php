@@ -14,7 +14,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #a6e9a6;
+            background-color: #B4D4FF;
         }
 
         .login-container {
@@ -22,7 +22,7 @@
             max-width: 1200px;
             /* Ubah max-width sesuai kebutuhan */
             background-color: #fff;
-            color: #186218;
+            color: #000000
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -98,12 +98,11 @@
 <body>
     <div class="login-container">
         <div class="left-container">
-            <img src="assets/images/hospital.jpg" alt="Login Image">
+            <img src="assets/images/logindokter.jpg" alt="Login Image">
         </div>
         <div class="right-container">
             <div class="login-form">
-                <h4 class="text-center">Login </h4>
-                <p class="login-box-msg text-center">Silahkan login sebagai <b class="text-success">Dokter</b> untuk melanjutkan</p>
+                <h4 class="text-center">Login Dokter</h4>
                 <br><br>
                 <form action="pages/login/checkLogin.php" method="post">
                     <label for="nama">Username :</label>
@@ -112,7 +111,7 @@
                     <label for="no_hp">Password :</label>
                     <input type="password" class="form-control" name="password" required>
 
-                    <button type="submit" class="btn btn-block btn-success">
+                    <button type="submit" class="btn btn-block btn-light">
                         Login
                     </button>
                 </form>

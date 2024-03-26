@@ -25,7 +25,7 @@
                         <h3 class="card-title">Data Poli</h3>
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-sm btn-success float-right" data-toggle="modal"
+                            <button type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal"
                                 data-target="#addModal">
                                 Tambah
                             </button>
@@ -91,7 +91,7 @@
                                     <td><?php echo $data['nama_poli'] ?></td>
                                     <td style="white-space: pre-line;"><?php echo $data['keterangan'] ?></td>
                                     <td>
-                                        <button type='button' class='btn btn-sm btn-warning edit-btn'
+                                        <button type='button' class='btn btn-sm btn-info edit-btn'
                                             data-toggle="modal"
                                             data-target="#editModal<?php echo $data['id'] ?>">Edit</button>
                                         <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
@@ -125,7 +125,7 @@
                                                             <textarea class="form-control" rows="3" id="keterangan"
                                                                 name="keterangan"><?php echo $data['keterangan'] ?></textarea>
                                                         </div>
-                                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                                        <button type="submit" class="btn btn-info">Simpan</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -151,7 +151,7 @@
                                                         <p>Apakah anda yakin akan menghapus data <span
                                                                 class="font-weight-bold"><?php echo $data['nama_poli'] ?></span>
                                                         </p>
-                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        <button type="submit" class="btn btn-info">Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>

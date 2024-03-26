@@ -154,7 +154,7 @@
                                 <?php
                                 $no = 1;
                             require 'config/koneksi.php';
-                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.aktif, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
+                            $query = "SELECT jadwal_periksa.id, jadwal_periksa.id_dokter, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.aktif, dokter.id AS idDokter, dokter.nama, dokter.alamat, dokter.no_hp, dokter.id_poli, poli.id AS idPoli, poli.nama_poli, poli.keterangan, CASE WHEN jadwal_periksa.aktif = 'Y' THEN 'Aktif' ELSE 'Tidak Aktif' END AS status_tampilan FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE id_poli = '$id_poli' AND dokter.id = '$id_dokter'";
                             $result = mysqli_query($mysqli, $query);
 
                             while ($data = mysqli_fetch_assoc($result)) {
@@ -166,7 +166,7 @@
                                     <td><?php echo $data['hari'] ?></td>
                                     <td><?php echo $data['jam_mulai'] ?></td>
                                     <td><?php echo $data['jam_selesai'] ?></td>
-                                    <td><?php echo $data['aktif'] ?></td>
+                                    <td><?php echo $data['status_tampilan'] ?></td>
                                     <td>
                                         <?php
                                             require 'config/koneksi.php';
@@ -233,12 +233,12 @@
                                                             <label for="aktif">Aktif</label>
                                                             <select class="form-control" id="aktif" name="aktif"
                                                                 required>
-                                                                <option value="Y"
-                                                                    <?php echo $data['aktif'] == 'Y' ? 'selected' : ''; ?>>
-                                                                    Ya</option>
-                                                                <option value="N"
-                                                                    <?php echo $data['aktif'] == 'N' ? 'selected' : ''; ?>>
-                                                                    Tidak</option>
+                                                                <option value="Aktif"
+                                                                    <?php echo $data['aktif'] == 'Aktif' ? 'selected' : ''; ?>>
+                                                                    Aktif</option>
+                                                                <option value="Tidak Aktif"
+                                                                    <?php echo $data['aktif'] == 'Tidak Aktif' ? 'selected' : ''; ?>>
+                                                                    Tidak Aktif</option>
                                                             </select>
                                                         </div>
 

@@ -25,7 +25,7 @@
                         <h3 class="card-title">Data Pasien</h3>
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-sm btn-success float-right" data-toggle="modal"
+                            <button type="button" class="btn btn-sm btn-primary float-right" data-toggle="modal"
                                 data-target="#addModal">
                                 Tambah
                             </button>
@@ -107,7 +107,7 @@
                                     <td><?php echo $data['no_hp'] ?></td>
                                     <td><?php echo $data['no_rm'] ?></td>
                                     <td>
-                                        <button type='button' class='btn btn-sm btn-warning edit-btn'
+                                        <button type='button' class='btn btn-sm btn-info edit-btn'
                                             data-toggle="modal"
                                             data-target="#editModal<?php echo $data['id'] ?>">Edit</button>
                                         <button type='button' class='btn btn-sm btn-danger edit-btn' data-toggle="modal"
@@ -154,7 +154,7 @@
                                                                 name="no_hp" value="<?php echo $data['no_hp'] ?>"
                                                                 required>
                                                         </div>
-                                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                                        <button type="submit" class="btn btn-info">Simpan</button>
                                                     </form>
                                                 </div>
                                             </div>

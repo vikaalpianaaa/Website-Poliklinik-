@@ -13,8 +13,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #a6e9a6;
+            height: 130vh;
+            background-color: #B4D4FF;
         }
 
         .login-container {
@@ -34,19 +34,19 @@
         }
 
         .left-container img {
-            width: 100%;
+            width: 110%;
             height: 100%;
             object-fit: cover;
         }
 
         .right-container {
             flex: 1;
-            padding: 40px;
+            padding: 1px;
             /* Menambahkan padding untuk memperbesar area formulir */
         }
 
         .login-form {
-            max-width: 400px;
+            max-width: 380px;
             /* Sesuaikan dengan kebutuhan */
             margin: 0 auto;
         }
@@ -98,7 +98,7 @@
 <body>
     <div class="login-container">
         <div class="left-container">
-            <img src="assets/images/hospital1.jpg" alt="Login Image">
+            <img src="assets/images/registrasi.jpg" alt="Register Image">
         </div>
         <div class="right-container">
             <div class="login-form">
@@ -129,9 +129,8 @@
 
             </div>
             <div class="text-center mt-3">
-                <p>- Belum punya akun pasien? -</p>
                 <a href="loginUser.php" class="">
-                    Login
+                    Belum punya akun pasien?
                 </a>
             </div>
         </div>

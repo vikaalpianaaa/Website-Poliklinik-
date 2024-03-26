@@ -20,10 +20,10 @@
 
 <body class="hold-transition login-page">
     <div class="container-fluid flex flex-col justify-center items-center text-white p-5"
-        style="height: 400px; background-color: #232ed1;">
+        style="height: 430px; background-color: #232ed1;">
         <h1 class="font-weight-bold mb-3">Sistem Temu Janji Pasien - Dokter</h1>
-        <h5>
-            Bimbingan Karir 2023 Bidang Website
+        <h5 style="font-size: 22px; color: #BECFD6">
+            Bimbingan Karir 2023 Bidang Website Developer
         </h5>
     </div>
     <div class="container mt-5">
@@ -35,67 +35,24 @@
                         <h3 class="">Pasien</h3>
                         <p class="card-text">Apabila anda adalah seorang Pasien, Silahkan Login terlebih dahulu untuk
                             melakukan pendaftaran sebagai pasien</p>
-                        <a href="loginUser.php" class="btn btn-primary btn-block">Login Sebagai Pasien</a>
+                        <a href="loginUser.php" class="btn btn-primary btn-block">Klik Me</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <i class="fas fa-user-nurse fa-fw mb-3 text-success" style="font-size: 34px;"></i>
+                        <i class="fas fa-user-nurse fa-fw mb-3 text-primary" style="font-size: 34px;"></i>
                         <h3 class="">Dokter</h3>
                         <p class="card-text">Apabila anda adalah seorang Dokter, silahkan Login terlebih dahulu untuk
                             memulai melayani pasien</p>
                         <div class="d-grid">
-                            <a href="login.php" class="btn btn-success btn-block">Login Sebagai Dokter</a>
+                            <a href="login.php" class="btn btn-primary btn-block">Klik Me</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /.login-box -->
-        <section class="client_section layout_padding">
-        <div class="container">
-            <div class="heading_container heading_center">
-                <h2 style="font-size: 32px;">Testimoni Pasien</h2>
-                <p>Para Pasien Yang Setia</p>
-            </div><br><br><br>
-            <div class="row">
-                <!-- Customer 1 -->
-                <div class="row-md-6">
-                    <div class="box">
-                        <div class="profile">
-                            <div class="img-box">
-                                <img src="asset/images/testimoni.png" alt="Client 1">
-                            </div>
-                            <div class="client_info">
-                                <h6>Nopal</h6>
-                                <p>Semarang</p>
-                            </div>
-                        </div>
-                        <p>Pelayanan diweb ini sangat cepat dan mudah, detail histori tercatat lengkap, termasuk catatan obat, harga pelayanan terjangkau, dokter ramah pokoke mantab pol!</p>
-                    </div>
-                </div>
-                <!-- Customer 2 -->
-                <div class="row-md-6">
-                    <div class="box">
-                        <div class="profile">
-                            <div class="img-box">
-                                <img src="asset/images/testimoni.png" alt="Client 2">
-                            </div>
-                            <div class="client_info">
-                                <h6>Ilyas</h6>
-                                <p>Semarang</p>
-                            </div>
-                        </div>
-                        <p>Aku tidak pernah merasakan mudahnya berobat sebelum mengenal web ini, web yang mudah digunakan dan dokter yang terampil membuat berobat menjadi lebih menyenangkan!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-        <!-- jQuery -->
         <script src="assets/plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
         <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
